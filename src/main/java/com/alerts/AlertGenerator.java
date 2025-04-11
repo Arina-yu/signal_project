@@ -9,6 +9,7 @@ import com.data_management.Patient;
  * relies on a {@link DataStorage} instance to access patient data and evaluate
  * it against specific health criteria.
  */
+
 public class AlertGenerator {
     // Rule: 5.1 - Variable names are written in lowerCamelCase.
     private DataStorage dataStorage;
