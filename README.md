@@ -1,4 +1,5 @@
 Student ID: i639795
+Student ID: i6401819
 
 
 # Cardio Data Simulator
