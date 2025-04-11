@@ -10,6 +10,7 @@ import com.data_management.Patient;
  * it against specific health criteria.
  */
 public class AlertGenerator {
+    // Rule: 5.1 - Variable names are written in lowerCamelCase.
     private DataStorage dataStorage;
 
     /**
@@ -20,6 +21,8 @@ public class AlertGenerator {
      * @param dataStorage the data storage system that provides access to patient
      *                    data
      */
+
+    // Rule: 5.1 - Parameter names use lowerCamelCase.
     public AlertGenerator(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }

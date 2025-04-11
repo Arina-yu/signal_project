@@ -8,11 +8,13 @@ import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class FileOutputStrategy implements OutputStrategy {
-
+    // Rule: 5.1 - Variable names are written in lowerCamelCase.
     private String baseDirectory;
-    //baseDirectory should start from lower case letter as it is a variable and to them should be applied lowerCamelCase rule
-    public final ConcurrentHashMap<String, String> file_map = new ConcurrentHashMap<>();
 
+    // Rule: 5.1 - Constants are written in UPPER_CASE, but this is not a constant. Therefore, use lowerCamelCase.
+    public final ConcurrentHashMap<String, String> fileMap = new ConcurrentHashMap<>();
+
+    // Rule: 5.1 - Parameter names use lowerCamelCase.
     public FileOutputStrategy(String baseDirectory) {
 
         this.baseDirectory = baseDirectory;
@@ -28,7 +30,8 @@ public class FileOutputStrategy implements OutputStrategy {
             return;
         }
         // Set the FilePath variable
-        String filePath = file_map.computeIfAbsent(label, k -> Paths.get(baseDirectory, label + ".txt").toString());
+        // Rule: 5.1 - Variable names are written in lowerCamelCase.
+        String filePath = fileMap.computeIfAbsent(label, k -> Paths.get(baseDirectory, label + ".txt").toString());
         //filePath should start from lower case letter as it it a variable
 
         // Write the data to the file
