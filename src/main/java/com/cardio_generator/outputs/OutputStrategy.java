@@ -11,12 +11,12 @@ package com.cardio_generator.outputs;
  * along with a timestamp and label.
  * </p>
  *
- * @author Oryna Yukhimenko
+ * @author Oryna Yukhymenko
  * @author Elena Gostiukhina
  */
 public interface OutputStrategy {
     /**
-     * Outputs the health data for a specific patient.
+     * Outputs the health data for a certain patient
      * <p>
      * This method is responsible for outputting the health data in the desired format or destination.
      * It takes in the patient ID, timestamp, label, and the actual data to be output. The method will handle the

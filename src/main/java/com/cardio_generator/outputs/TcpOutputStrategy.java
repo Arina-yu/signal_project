@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
  * The output data is formatted as a CSV string containing the patient ID, timestamp, label, and the health data.
  * </p>
  *
- * @author Oryna Yukhimenko
+ * @author Oryna Yukhymenko
  * @author Elena Gostiukhina
  */
 public class TcpOutputStrategy implements OutputStrategy {

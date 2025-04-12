@@ -36,7 +36,7 @@ import java.util.ArrayList;
  * the console, files, WebSocket server, or TCP sockets depending on the user's configuration.
  * </p>
  *
- * @author Oryna Yukhimenko
+ * @author Oryna Yukhymenko
  * @author Elena Gostiukhina
  */
 

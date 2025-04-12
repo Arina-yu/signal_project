@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * patient data to the appropriate file, ensuring the files are organized by their labels.
  * </p>
  *
- * @author Oryna Yukhimenko
+ * @author Oryna Yukhymenko
  * @author Elena Gostiukhina
  */
 public class FileOutputStrategy implements OutputStrategy {

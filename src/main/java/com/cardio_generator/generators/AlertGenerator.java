@@ -16,7 +16,7 @@ import com.cardio_generator.outputs.OutputStrategy;
  * rate of alert generation. The class outputs the alert status ("triggered" or "resolved") via the provided {@link OutputStrategy}.
  * </p>
  *
- * @author Oryna Yukhimenko
+ * @author Oryna Yukhymenko
  * @author Elena Gostiukhina
  */
 
