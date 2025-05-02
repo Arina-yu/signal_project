@@ -52,7 +52,7 @@ public class DataReaderClass implements DataReader{
         }
     }
 
-    private List<PatientRecord> parseFile(File file) throws IOException {
+    public List<PatientRecord> parseFile(File file) throws IOException {
         List<PatientRecord> records = new ArrayList<>();
 
         try (FileReader reader = new FileReader(file)) {
@@ -80,7 +80,7 @@ public class DataReaderClass implements DataReader{
         return records;
     }
 
-    private PatientRecord parseRecord(JSONObject jsonRecord) {
+    public PatientRecord parseRecord(JSONObject jsonRecord) {
         try {
             int patientId = jsonRecord.getInt("patientId");
             long timestamp = jsonRecord.getLong("timestamp");
@@ -94,7 +94,7 @@ public class DataReaderClass implements DataReader{
         }
     }
 
-    private void storeRecords(DataStorage dataStorage, List<PatientRecord> records) {
+    public void storeRecords(DataStorage dataStorage, List<PatientRecord> records) {
         for (PatientRecord record : records) {
             dataStorage.addPatientData(
                     record.getPatientId(),
