@@ -10,7 +10,7 @@ package com.data_management;
  * taken.
  */
 public class PatientRecord {
-    private int patientId;
+    private static int patientId;
     private String recordType; // Example: ECG, blood pressure, etc.
     private double measurementValue; // Example: heart rate
     private long timestamp;
@@ -37,7 +37,7 @@ public class PatientRecord {
      * 
      * @return the patient ID
      */
-    public int getPatientId() {
+    public static int getPatientId() {
         return patientId;
     }
 
