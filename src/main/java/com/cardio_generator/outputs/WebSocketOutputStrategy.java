@@ -1,33 +1,43 @@
 package com.cardio_generator.outputs;
 
-import com.data_management.DataReader;
 import org.java_websocket.WebSocket;
 import org.java_websocket.server.WebSocketServer;
-
 import java.net.InetSocketAddress;
+import java.util.Collection;
 
 public class WebSocketOutputStrategy implements OutputStrategy {
 
-    private static final String MESSAGE_FORMAT = "%d,%d,%s,%s"; // patientId,timestamp,label,data
-    private WebSocketServer server;
+    private static WebSocketServer server;
 
     public WebSocketOutputStrategy(int port) {
-        server = new SimpleWebSocketServer(new InetSocketAddress(port));
-        System.out.println("WebSocket server started on port: " + port);
+        this(createDefaultServer(port));
+    }
+
+    // Package-private constructor for testing
+    WebSocketOutputStrategy(WebSocketServer server) {
+        this.server = server;
+        System.out.println("WebSocket server created on port: " + server.getPort() + ", listening for connections...");
         server.start();
+    }
+
+    public WebSocketServer getServer() {
+        return server;
+    }
+
+    public static WebSocketServer createDefaultServer(int port) {
+        return new SimpleWebSocketServer(new InetSocketAddress(port));
     }
 
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         String message = String.format("%d,%d,%s,%s", patientId, timestamp, label, data);
-        // Broadcast the message to all connected clients
         for (WebSocket conn : server.getConnections()) {
             conn.send(message);
         }
+        System.out.println("Broadcasting message: " + message);
     }
 
     private static class SimpleWebSocketServer extends WebSocketServer {
-
         public SimpleWebSocketServer(InetSocketAddress address) {
             super(address);
         }
@@ -55,6 +65,10 @@ public class WebSocketOutputStrategy implements OutputStrategy {
         @Override
         public void onStart() {
             System.out.println("Server started successfully");
+        }
+
+        public Collection<WebSocket> getConnections() {
+            return server.getConnections();
         }
     }
 }
