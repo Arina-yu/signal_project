@@ -1,7 +1,6 @@
 package cardio_generator.outputs;
 
 import com.cardio_generator.HealthDataSimulator;
-import com.cardio_generator.outputs.*;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
@@ -47,8 +46,6 @@ class HealthDataSimulatorTest {
         // Если не упало — работает
         assertTrue(true);
     }
-
-
 
     @Test
     void testScheduleTaskRunsWithoutException() {

@@ -19,7 +19,7 @@ class DataStorageTest {
     void setUp() {
         dataStorage = DataStorage.getInstance();
 
-        // Очищаем предыдущие данные для изоляции тестов (не рекомендуется в продакшене)
+        // Cleaning up the staff
         List<Patient> allPatients = dataStorage.getAllPatients();
         for (Patient patient : allPatients) {
             // Assuming Patient class has a clearRecords() or similar for testing purposes

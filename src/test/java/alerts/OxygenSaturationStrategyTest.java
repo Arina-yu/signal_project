@@ -3,10 +3,8 @@ package alerts;
 import com.alerts.Alert;
 import com.alerts.strategies.OxygenSaturationStrategy;
 import com.data_management.Patient;
-import com.data_management.PatientRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class OxygenSaturationStrategyTest {
@@ -29,8 +27,6 @@ class OxygenSaturationStrategyTest {
         assertNotNull(alert);
         assertTrue(alert.getCondition().contains("Critical Low Oxygen Saturation"));
     }
-
-
 
     @Test
     void testRapidDropRateBased() {
