@@ -49,6 +49,11 @@ public class DataReaderClass implements DataReader {
         }
     }
 
+    @Override
+    public void stopReading() {
+
+    }
+
     public List<PatientRecord> parseFile(File file) throws IOException {
         List<PatientRecord> records = new ArrayList<>();
 
@@ -114,4 +119,7 @@ public class DataReaderClass implements DataReader {
             );
         }
     }
+
+
+
 }
