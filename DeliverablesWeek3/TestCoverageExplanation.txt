@@ -1,0 +1,11 @@
+We wrote tests only for the functions we've implemented for triggering alerts, that's why total coverage is 38%. 
+
+
+The package com.cardio_generator.outputs has relatively low test coverage, mostly for TcpOutputStrategy and WebSocketOutputStrategy.
+These classes are hard to test as they interact with sockets and clients, which is more challenging to test with JUnit and think in advance about all possible edge cases.
+
+
+We also didn't test package com.cardio_generator.generators as they work with streams of data, therefore it is very hard to predict and test the results of the methods there. Especially if streams are working with real time data.
+
+
+All other packages and classes have been tested thoroughly and have good coverage.
