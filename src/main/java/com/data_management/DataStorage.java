@@ -3,32 +3,35 @@ package com.data_management;
 import com.alerts.AlertGenerator;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Singleton class for managing storage and retrieval of patient data
  * within a healthcare monitoring system.
  */
 public class DataStorage {
-
     private static DataStorage instance;
-
-    // Хранилище пациентов
     private final Map<Integer, Patient> patientMap;
 
+    // Modified constructor to be protected for testing
     public DataStorage() {
-        this.patientMap = new HashMap<>();
+        this.patientMap = new ConcurrentHashMap<>();
     }
 
-    /**
-     * Returns the singleton instance of DataStorage.
-     * Ensures that only one instance is created.
-     */
     public static synchronized DataStorage getInstance() {
         if (instance == null) {
             instance = new DataStorage();
         }
         return instance;
     }
+
+    // New method for test injection
+    public static synchronized void setInstance(DataStorage testInstance) {
+        instance = testInstance;
+    }
+
+
+
 
     public static void main(String[] strings) {
     }
