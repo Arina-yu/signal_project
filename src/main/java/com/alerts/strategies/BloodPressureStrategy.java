@@ -38,7 +38,7 @@ public class BloodPressureStrategy implements AlertStrategy {
         return null;
     }
 
-    private Alert checkCriticalThresholds(List<PatientRecord> systolic, List<PatientRecord> diastolic, Patient patient) {
+    public Alert checkCriticalThresholds(List<PatientRecord> systolic, List<PatientRecord> diastolic, Patient patient) {
         if (systolic.isEmpty() || diastolic.isEmpty()) {
             return null;
         }
@@ -90,7 +90,7 @@ public class BloodPressureStrategy implements AlertStrategy {
         return null;
     }
 
-    private boolean checkIncreasingTrend(List<PatientRecord> records) {
+    public boolean checkIncreasingTrend(List<PatientRecord> records) {
         if (records.size() < TREND_WINDOW) return false;
 
         for (int i = 0; i < TREND_WINDOW - 1; i++) {
@@ -102,7 +102,7 @@ public class BloodPressureStrategy implements AlertStrategy {
         return true;
     }
 
-    private boolean checkDecreasingTrend(List<PatientRecord> records) {
+    public boolean checkDecreasingTrend(List<PatientRecord> records) {
         if (records.size() < TREND_WINDOW) return false;
 
         for (int i = 0; i < TREND_WINDOW - 1; i++) {
@@ -114,7 +114,7 @@ public class BloodPressureStrategy implements AlertStrategy {
         return true;
     }
 
-    private List<PatientRecord> getRecentRecords(Patient patient, String recordType, long timeWindowMs) {
+    public List<PatientRecord> getRecentRecords(Patient patient, String recordType, long timeWindowMs) {
         long startTime = System.currentTimeMillis() - timeWindowMs;
         return patient.getRecords(startTime, Long.MAX_VALUE).stream()
                 .filter(r -> r.getRecordType().equals(recordType))
