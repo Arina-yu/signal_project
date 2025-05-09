@@ -3,6 +3,8 @@ package com.alerts;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.alerts.decorator.PriorityAlertDecorator;
+import com.alerts.decorator.RepeatedAlertDecorator;
 import com.alerts.factories.AlertFactory;
 import com.alerts.factories.BloodOxygenAlertFactory;
 import com.alerts.factories.BloodPressureAlertFactory;
@@ -193,10 +195,43 @@ public class AlertGenerator {
         return new double[]{mean, stdDev};
     }
 
-    protected void triggerAlert(Alert alert) {
-        System.out.printf("ALERT: %s for Patient %s at %tF %<tT%n",
-                alert.getCondition(),
-                alert.getPatientId(),
-                new Date(alert.getTimestamp()));
+
+
+    /**
+     * Applies appropriate decorators to the alert
+     * @param alert the original alert
+     * @return decorated alert
+     */
+    private Alert applyDecorators(Alert alert) {
+        // Example: Make critical alerts high priority
+        if (alert.getCondition().contains("Critical")) {
+            alert = new PriorityAlertDecorator(alert, PriorityAlertDecorator.Priority.HIGH);
+        }
+
+        // Example: Repeat oxygen alerts every 5 minutes (300000 ms) up to 3 times
+        if (alert.getCondition().contains("Oxygen")) {
+            alert = new RepeatedAlertDecorator(alert, 300000, 3);
+        }
+
+        return alert;
     }
+
+
+
+    /**
+     * Triggers an alert with optional decorators
+     * @param alert the alert to trigger
+     */
+    protected void triggerAlert(Alert alert) {
+        // Apply decorators based on alert type
+        Alert decoratedAlert = applyDecorators(alert);
+
+        System.out.printf("ALERT: %s for Patient %s at %tF %<tT%n",
+                decoratedAlert.getCondition(),
+                decoratedAlert.getPatientId(),
+                new Date(decoratedAlert.getTimestamp()));
+    }
+
+
+
 }

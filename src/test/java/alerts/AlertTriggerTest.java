@@ -17,15 +17,12 @@ class AlertTriggerTest {
 
     @Test
     void testBloodPressureTrendIncreasingAlert() {
-        // Тренд повышения (>10 mmHg за 3 измерения)
         addRecords(testPatient, "SystolicPressure", 100, 115, 130);
         alertGenerator.evaluateData(testPatient);
-        // Должен сгенерировать alert - проверяется в MockOutput
     }
 
     @Test
     void testBloodPressureTrendDecreasingAlert() {
-        // Тренд понижения (>10 mmHg за 3 измерения)
         addRecords(testPatient, "DiastolicPressure", 80, 65, 50);
         alertGenerator.evaluateData(testPatient);
     }
@@ -66,11 +63,9 @@ class AlertTriggerTest {
 
     @Test
     void testECGAbnormalityAlert() {
-        // Создаем 30 нормальных значений
         for (int i = 0; i < 30; i++) {
             addRecord(testPatient, "ECG", 1.0, System.currentTimeMillis() - (30 - i) * 1000);
         }
-        // Добавляем аномальное значение
         addRecord(testPatient, "ECG", 5.0, System.currentTimeMillis());
         alertGenerator.evaluateData(testPatient);
     }
@@ -87,27 +82,21 @@ class AlertTriggerTest {
         addRecord(testPatient, "DiastolicPressure", 80, System.currentTimeMillis());
         addRecord(testPatient, "Saturation", 98, System.currentTimeMillis());
         alertGenerator.evaluateData(testPatient);
-        // Не должно быть алертов - проверяется отсутствие вывода
     }
 
     @Test
     void testEdgeCaseMinimumRecordsForTrend() {
-        // Недостаточно записей для тренда (2 вместо 3)
         addRecords(testPatient, "SystolicPressure", 100, 115);
         alertGenerator.evaluateData(testPatient);
-        // Не должно быть алертов
     }
 
     @Test
     void testBoundaryValuesForThresholds() {
-        // Граничные значения (ровно 90 и 60)
         addRecord(testPatient, "SystolicPressure", 90, System.currentTimeMillis());
         addRecord(testPatient, "DiastolicPressure", 60, System.currentTimeMillis());
         alertGenerator.evaluateData(testPatient);
-        // Не должно быть алертов для граничных значений
     }
 
-    // Вспомогательные методы
     private void addRecord(Patient patient, String recordType, double value, long timestamp) {
         patient.addRecord(value, recordType, timestamp);
     }
