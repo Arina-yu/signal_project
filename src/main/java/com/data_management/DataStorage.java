@@ -36,13 +36,15 @@ public class DataStorage {
     /**
      * Adds or updates patient data in the storage.
      */
-    public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
-        Patient patient = patientMap.get(patientId);
-        if (patient == null) {
-            patient = new Patient(patientId);
-            patientMap.put(patientId, patient);
-        }
-        patient.addRecord(measurementValue, recordType, timestamp);
+    public void addPatientData(int patientId, double measurementValue,
+                               String recordType, long timestamp) {
+        patientMap.compute(patientId, (id, patient) -> {
+            if (patient == null) {
+                patient = new Patient(id);
+            }
+            patient.addRecord(measurementValue, recordType, timestamp);
+            return patient;
+        });
     }
 
     /**

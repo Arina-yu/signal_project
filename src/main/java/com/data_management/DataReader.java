@@ -2,12 +2,22 @@ package com.data_management;
 
 import java.io.IOException;
 
+/**
+ * Interface for reading patient data from various sources.
+ * Modified to support real-time data streaming via WebSocket.
+ */
 public interface DataReader {
     /**
-     * Reads data from a specified source and stores it in the data storage.
-     * 
+     * Connects to a data source and begins continuous data reading.
+     * For WebSocket implementation, this starts listening to messages.
+     *
      * @param dataStorage the storage where data will be stored
-     * @throws IOException if there is an error reading the data
+     * @throws IOException if connection fails
      */
     void readData(DataStorage dataStorage) throws IOException;
+
+    /**
+     * Disconnects from the data source and stops reading.
+     */
+    void stopReading();
 }

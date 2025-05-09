@@ -1,5 +1,6 @@
 package com.cardio_generator.outputs;
 
+import com.data_management.DataReader;
 import org.java_websocket.WebSocket;
 import org.java_websocket.server.WebSocketServer;
 
@@ -7,11 +8,12 @@ import java.net.InetSocketAddress;
 
 public class WebSocketOutputStrategy implements OutputStrategy {
 
+    private static final String MESSAGE_FORMAT = "%d,%d,%s,%s"; // patientId,timestamp,label,data
     private WebSocketServer server;
 
     public WebSocketOutputStrategy(int port) {
         server = new SimpleWebSocketServer(new InetSocketAddress(port));
-        System.out.println("WebSocket server created on port: " + port + ", listening for connections...");
+        System.out.println("WebSocket server started on port: " + port);
         server.start();
     }
 
