@@ -63,4 +63,11 @@ public class Patient {
         }
         return filteredRecords;
     }
+    /**
+     * Returns the patient's unique identifier
+     * @return the patient ID
+     */
+    public int getPatientId() {
+        return this.patientId;
+    }
 }
