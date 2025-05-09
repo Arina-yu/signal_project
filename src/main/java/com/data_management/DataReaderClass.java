@@ -12,8 +12,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
+import java.util.Map;
 
 public class DataReaderClass implements DataReader {
+
     private final String outputDirectory;
 
     public DataReaderClass(String outputDirectory) {
