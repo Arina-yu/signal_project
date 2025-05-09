@@ -1,4 +1,5 @@
 package com.data_management;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -11,15 +12,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
-public class DataReaderClass implements DataReader{
+
+public class DataReaderClass implements DataReader {
     private final String outputDirectory;
 
-    /**
-     * Constructs a FileDataReader with the specified output directory.
-     *
-     * @param outputDirectory the directory where output files are stored
-     */
-    public  DataReaderClass(String outputDirectory) {
+    public DataReaderClass(String outputDirectory) {
         this.outputDirectory = outputDirectory;
     }
 
@@ -44,8 +41,8 @@ public class DataReaderClass implements DataReader{
                         List<PatientRecord> records = parseFile(file);
                         storeRecords(dataStorage, records);
                     } catch (Exception e) {
-                        System.err.println("Error processing file " + file.getName() + ": " + e.getMessage());
-                        throw new IOException("Failed to process file: " + file.getName(), e);
+                        // Логируем ошибку, но не бросаем IOException, чтобы не прерывать обработку других файлов
+                        System.err.println("⚠️ Error processing file " + file.getName() + ": " + e.getMessage());
                     }
                 }
             }
@@ -75,13 +72,26 @@ public class DataReaderClass implements DataReader{
                         }
                     }
                 }
+            } else {
+                System.err.println("Unsupported JSON structure in file: " + file.getName());
             }
+        } catch (Exception e) {
+            throw new IOException("Invalid JSON format in file: " + file.getName(), e);
         }
+
         return records;
     }
 
     public PatientRecord parseRecord(JSONObject jsonRecord) {
         try {
+            if (!jsonRecord.has("patientId") ||
+                    !jsonRecord.has("recordType") ||
+                    !jsonRecord.has("measurementValue") ||
+                    !jsonRecord.has("timestamp")) {
+                System.err.println("Error parsing record: missing required fields.");
+                return null;
+            }
+
             int patientId = jsonRecord.getInt("patientId");
             long timestamp = jsonRecord.getLong("timestamp");
             String recordType = jsonRecord.getString("recordType");
@@ -104,5 +114,4 @@ public class DataReaderClass implements DataReader{
             );
         }
     }
-
 }

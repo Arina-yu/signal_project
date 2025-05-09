@@ -5,14 +5,12 @@ import com.data_management.DataStorage;
 import com.data_management.PatientRecord;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class DataReaderClassTest {
 
@@ -33,22 +31,17 @@ public class DataReaderClassTest {
         tempDir.delete();
     }
 
-
-
     @Test
-    void testReadDataWithInvalidJsonFileThrowsIOException() throws IOException {
+    void testReadDataWithInvalidJsonFileIsHandledGracefully() throws IOException {
         File badFile = new File(tempDir, "bad.json");
         try (FileWriter writer = new FileWriter(badFile)) {
-            writer.write("{ invalid json ...");
+            writer.write("{ invalid json ...");  // intentionally bad JSON
         }
 
         DataStorage storage = new DataStorage();
 
-        IOException exception = assertThrows(IOException.class, () -> {
-            reader.readData(storage);
-        });
-
-        assertTrue(exception.getMessage().contains("Failed to process file"));
+        // Now we don't expect an exception; errors are logged
+        assertDoesNotThrow(() -> reader.readData(storage));
     }
 
     @Test
@@ -79,10 +72,10 @@ public class DataReaderClassTest {
         JSONObject json = new JSONObject(Map.of(
                 "patientId", 1,
                 "recordType", "BloodPressure"
+                // missing measurementValue and timestamp
         ));
 
         PatientRecord record = reader.parseRecord(json);
-
         assertNull(record);
     }
 
