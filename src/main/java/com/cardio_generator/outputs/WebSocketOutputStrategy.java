@@ -67,8 +67,9 @@ public class WebSocketOutputStrategy implements OutputStrategy {
             System.out.println("Server started successfully");
         }
 
+        @Override
         public Collection<WebSocket> getConnections() {
-            return server.getConnections();
+            return super.getConnections();
         }
     }
 }
