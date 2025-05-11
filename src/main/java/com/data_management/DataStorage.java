@@ -5,10 +5,8 @@ import com.alerts.AlertGenerator;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Singleton class for managing storage and retrieval of patient data
- * within a healthcare monitoring system.
- */
+
+//Singleton class for managing storage and retrieval of patient data in a healthcare monitoring system.
 public class DataStorage {
     private static DataStorage instance;
     private final Map<Integer, Patient> patientMap;
@@ -36,9 +34,7 @@ public class DataStorage {
     public static void main(String[] strings) {
     }
 
-    /**
-     * Adds or updates patient data in the storage.
-     */
+     // Adds or updates patient data in the storage.
     public void addPatientData(int patientId, double measurementValue,
                                String recordType, long timestamp) {
         patientMap.compute(patientId, (id, patient) -> {
@@ -50,17 +46,14 @@ public class DataStorage {
         });
     }
 
-    /**
-     * Retrieves patient records for a specific time range.
-     */
+    //Retrieves patient records for a specific time range
     public List<PatientRecord> getRecords(int patientId, long startTime, long endTime) {
         Patient patient = patientMap.get(patientId);
         return (patient != null) ? patient.getRecords(startTime, endTime) : new ArrayList<>();
     }
 
-    /**
-     * Returns all patients in storage.
-     */
+
+     //Returns all patients in storage
     public List<Patient> getAllPatients() {
         return new ArrayList<>(patientMap.values());
     }}
